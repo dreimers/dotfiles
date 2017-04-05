@@ -20,6 +20,7 @@ call dein#add('majutsushi/tagbar')
 call dein#add('tpope/vim-fugitive')
 call dein#add('vim-ctrlspace/vim-ctrlspace')
 call dein#add('Shougo/vimshell', { 'rev': '3787e5' }) " You can specify revision/branch/tag.
+call dein#add('lervag/vimtex')
 
 " Required:
 call dein#end()
@@ -83,6 +84,7 @@ let g:tagbar_usearrows = 1
 
 " Leader key
 let mapleader = ","
+let maplocalleader = ","
 
 " Copy/paste to/from system clipboard
 map <Leader>c "+y
