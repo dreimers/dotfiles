@@ -53,6 +53,23 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 colorscheme OceanicNext
 set background=dark
 
+" spellchecker
+" Toggle spell checking on and off with <leader>s
+nmap <silent> <leader>s :set spell!<CR>
+" Set region to Deutsch(Deutschland)
+set spelllang=de_de
+" but off by default
+set nospell
+" white-list for automatic spellchecking
+" german
+au BufNewFile,BufRead,BufEnter   *.wiki    setlocal spell    spelllang=de_de
+au BufNewFile,BufRead,BufEnter   *.md      setlocal spell    spelllang=de_de
+au BufNewFile,BufRead,BufEnter   *.txt     setlocal spell    spelllang=de_de
+au BufNewFile,BufRead,BufEnter   *.tex     setlocal spell    spelllang=de_de
+" english
+au BufNewFile,BufRead,BufEnter   README    setlocal spell    spelllang=en_us
+
+" airline
 let g:airline_powerline_fonts = 1
 let g:airline_theme='oceanicnext'
 let g:airline#extensions#tabline#enabled = 1
