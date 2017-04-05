@@ -11,6 +11,7 @@ call dein#add('Shougo/dein.vim')
 " Add or remove your plugins here:
 call dein#add('Shougo/neosnippet.vim')
 call dein#add('Shougo/neosnippet-snippets')
+call dein#add('neomake/neomake')
 call dein#add('mhartington/vim-devicons')
 call dein#add('mhartington/oceanic-next')
 call dein#add('vim-airline/vim-airline')
