@@ -4,13 +4,18 @@
 "dein Scripts-----------------------------
 " Required:
 set runtimepath^=~/.config/nvim/repos/github.com/Shougo/dein.vim
-call dein#begin(expand('.'))
+" local fzf
+set rtp+=~/.fzf
+call dein#begin(expand('~/.config/nvim/'))
 " Let dein manage dein
 call dein#add('Shougo/dein.vim')
 
 " Add or remove your plugins here:
 call dein#add('Shougo/neosnippet.vim')
 call dein#add('Shougo/neosnippet-snippets')
+call dein#add('Shougo/deoplete.nvim')
+call dein#add('neomake/neomake')
+call dein#add('zchee/deoplete-clang')
 call dein#add('mhartington/vim-devicons')
 call dein#add('mhartington/oceanic-next')
 call dein#add('vim-airline/vim-airline')
@@ -18,8 +23,14 @@ call dein#add('scrooloose/nerdtree')
 call dein#add('scrooloose/nerdcommenter')
 call dein#add('majutsushi/tagbar')
 call dein#add('tpope/vim-fugitive')
+call dein#add('tpope/vim-surround')
 call dein#add('vim-ctrlspace/vim-ctrlspace')
 call dein#add('critiqjo/lldb.nvim')
+call dein#add('lervag/vimtex')
+call dein#add('chase/vim-ansible-yaml')
+"call dein#add('albfan/ag.vim')
+call dein#add('junegunn/fzf.vim')
+call dein#add('jiangmiao/auto-pairs')
 call dein#add('Shougo/vimshell', { 'rev': '3787e5' }) " You can specify revision/branch/tag.
 
 " Required:
@@ -104,3 +115,31 @@ nnoremap <F8> :LL continue<CR>
 nnoremap <S-F8> :LL process interrupt<CR>
 nnoremap <F9> :LL print <C-R>=expand('<cword>')<CR>
 vnoremap <F9> :<C-U>LL print <C-R>=lldb#util#get_selection()<CR><CR>
+
+" turn on deoplete
+let g:deoplete#enable_at_startup = 1
+
+" setup deoplete-clang
+let g:deoplete#sources#clang#libclang_path = "/usr/lib/libclang.so"
+let g:deoplete#sources#clang#clang_header = "/usr/lib/clang"
+
+" neosnippet
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+" turn of preview window on completion
+set completeopt-=preview
+"
+" SuperTab like snippets behavior.
+"imap <expr><TAB>
+" \ pumvisible() ? "\<C-n>" :
+" \ neosnippet#expandable_or_jumpable() ?
+" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
