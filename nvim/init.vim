@@ -71,6 +71,9 @@ let mapleader = ","
 map <Leader>c "+y
 map <Leader>v "+p
 
+" Save file
+map <Leader>w :w<CR>
+
 " Clear search highlighting with spacebar
 nnoremap <leader><space> :noh<CR>
 
