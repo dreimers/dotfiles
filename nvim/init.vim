@@ -19,6 +19,7 @@ call dein#add('scrooloose/nerdcommenter')
 call dein#add('majutsushi/tagbar')
 call dein#add('tpope/vim-fugitive')
 call dein#add('vim-ctrlspace/vim-ctrlspace')
+call dein#add('critiqjo/lldb.nvim')
 call dein#add('Shougo/vimshell', { 'rev': '3787e5' }) " You can specify revision/branch/tag.
 
 " Required:
@@ -93,3 +94,13 @@ nmap <leader>o :NERDTreeToggle<CR>
 " toggle tagbar
 nnoremap <leader>t :TagbarToggle<CR>
 
+" lldb bindings
+nmap <M-b> <Plug>LLBreakSwitch
+vmap <F2> <Plug>LLStdInSelected
+nnoremap <F4> :LLstdin<CR>
+nnoremap <F5> :LLmode debug<CR>
+nnoremap <S-F5> :LLmode code<CR>
+nnoremap <F8> :LL continue<CR>
+nnoremap <S-F8> :LL process interrupt<CR>
+nnoremap <F9> :LL print <C-R>=expand('<cword>')<CR>
+vnoremap <F9> :<C-U>LL print <C-R>=lldb#util#get_selection()<CR><CR>
