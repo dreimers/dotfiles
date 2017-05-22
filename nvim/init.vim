@@ -11,7 +11,9 @@ call dein#add('Shougo/dein.vim')
 " Add or remove your plugins here:
 call dein#add('Shougo/neosnippet.vim')
 call dein#add('Shougo/neosnippet-snippets')
+call dein#add('Shougo/deoplete.nvim')
 call dein#add('neomake/neomake')
+call dein#add('zchee/deoplete-clang')
 call dein#add('mhartington/vim-devicons')
 call dein#add('mhartington/oceanic-next')
 call dein#add('vim-airline/vim-airline')
@@ -20,8 +22,13 @@ call dein#add('scrooloose/nerdcommenter')
 call dein#add('majutsushi/tagbar')
 call dein#add('tpope/vim-fugitive')
 call dein#add('vim-ctrlspace/vim-ctrlspace')
-call dein#add('Shougo/vimshell', { 'rev': '3787e5' }) " You can specify revision/branch/tag.
+call dein#add('critiqjo/lldb.nvim')
 call dein#add('lervag/vimtex')
+call dein#add('chase/vim-ansible-yaml')
+"call dein#add('albfan/ag.vim')
+call dein#add('junegunn/fzf.vim')
+call dein#add('jiangmiao/auto-pairs')
+call dein#add('Shougo/vimshell', { 'rev': '3787e5' }) " You can specify revision/branch/tag.
 
 " Required:
 call dein#end()
