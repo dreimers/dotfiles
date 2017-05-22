@@ -4,7 +4,9 @@
 "dein Scripts-----------------------------
 " Required:
 set runtimepath^=~/.config/nvim/repos/github.com/Shougo/dein.vim
-call dein#begin(expand('.'))
+" local fzf
+set rtp+=~/.fzf
+call dein#begin(expand('~/.config/nvim/'))
 " Let dein manage dein
 call dein#add('Shougo/dein.vim')
 
