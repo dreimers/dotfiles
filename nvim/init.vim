@@ -58,6 +58,9 @@ set number
 " Highlight current line
 set cursorline
 set hidden
+" ignore case on search if all lowercase
+set ignorecase
+set smartcase
 
  " Theme
 syntax enable
