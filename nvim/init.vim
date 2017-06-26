@@ -30,6 +30,7 @@ call dein#add('lervag/vimtex')
 call dein#add('chase/vim-ansible-yaml')
 "call dein#add('albfan/ag.vim')
 call dein#add('junegunn/fzf.vim')
+call dein#add('junegunn/vim-easy-align')
 call dein#add('jiangmiao/auto-pairs')
 call dein#add('Shougo/vimshell', { 'rev': '3787e5' }) " You can specify revision/branch/tag.
 
@@ -115,6 +116,13 @@ nnoremap <F8> :LL continue<CR>
 nnoremap <S-F8> :LL process interrupt<CR>
 nnoremap <F9> :LL print <C-R>=expand('<cword>')<CR>
 vnoremap <F9> :<C-U>LL print <C-R>=lldb#util#get_selection()<CR><CR>
+
+" vim-easyalign
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
 
 " turn on deoplete
 let g:deoplete#enable_at_startup = 1
