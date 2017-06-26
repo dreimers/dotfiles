@@ -31,6 +31,7 @@ call dein#add('chase/vim-ansible-yaml')
 "call dein#add('albfan/ag.vim')
 call dein#add('junegunn/fzf.vim')
 call dein#add('junegunn/vim-easy-align')
+call dein#add('junegunn/rainbow_parentheses.vim')
 call dein#add('jiangmiao/auto-pairs')
 call dein#add('Shougo/vimshell', { 'rev': '3787e5' }) " You can specify revision/branch/tag.
 
