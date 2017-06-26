@@ -107,6 +107,13 @@ nmap <leader>o :NERDTreeToggle<CR>
 " toggle tagbar
 nnoremap <leader>t :TagbarToggle<CR>
 
+" fzf mappings
+noremap <Leader>T :Tags <C-R>=expand('<cword>')<CR><CR>
+noremap gb :Buffers <CR>
+
+" buffer mappings
+
+
 " lldb bindings
 nmap <M-b> <Plug>LLBreakSwitch
 vmap <F2> <Plug>LLStdInSelected
