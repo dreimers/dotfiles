@@ -28,11 +28,12 @@ call dein#add('vim-ctrlspace/vim-ctrlspace')
 call dein#add('critiqjo/lldb.nvim')
 call dein#add('lervag/vimtex')
 call dein#add('chase/vim-ansible-yaml')
-"call dein#add('albfan/ag.vim')
 call dein#add('junegunn/fzf.vim')
 call dein#add('junegunn/vim-easy-align')
 call dein#add('junegunn/rainbow_parentheses.vim')
 call dein#add('jiangmiao/auto-pairs')
+call dein#add('ntpeters/vim-better-whitespace')
+call dein#add('AndrewRadev/switch.vim')
 call dein#add('Shougo/vimshell', { 'rev': '3787e5' }) " You can specify revision/branch/tag.
 
 " Required:
@@ -60,6 +61,9 @@ set number
 " Highlight current line
 set cursorline
 set hidden
+" ignore case on search if all lowercase
+set ignorecase
+set smartcase
 
  " Theme
 syntax enable
@@ -120,6 +124,7 @@ vmap <F2> <Plug>LLStdInSelected
 nnoremap <F4> :LLstdin<CR>
 nnoremap <F5> :LLmode debug<CR>
 nnoremap <S-F5> :LLmode code<CR>
+nnoremap <F7> :LL step<CR>
 nnoremap <F8> :LL continue<CR>
 nnoremap <S-F8> :LL process interrupt<CR>
 nnoremap <F9> :LL print <C-R>=expand('<cword>')<CR>
@@ -155,7 +160,3 @@ set completeopt-=preview
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
-" For conceal markers.
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
