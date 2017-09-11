@@ -1,13 +1,35 @@
 [user]
 	email = d.reimers@tu-bs.de
 	name = Dennis Reimers
+
+[user "git@gitlab.ibr.cs.tu-bs.de"]
+	email = dreimers@ibr.cs.tu-bs.de
+	name = Dennis Reimers
+
+[color]
+	ui = auto
+
 [alias]
-	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+	co = checkout
+	ci = commit
+	st = status
+	br = branch
+	hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+	type = cat-file -t
+	dump = cat-file -p
+	prev = checkout HEAD^1
+	next = "!sh -c 'git log --reverse --pretty=%H master | awk \"/$(git rev-parse HEAD)/{getline;print}\" | xargs git checkout'"
+	ctags = !.git/hooks/ctags
+
 [push]
 	default = simple
+
 [core]
-	excludesfile = ~/.git/gitignore
+	excludesfile= ~/.gitignore
+	autocrlf = input
+
 [diff]
 	tool = meld
-[merge]
-	tool = meld
+
+[init]
+	templatedir = ~/.git/templates/
