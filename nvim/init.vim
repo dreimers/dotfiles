@@ -18,19 +18,24 @@ call dein#add('neomake/neomake')
 call dein#add('zchee/deoplete-clang')
 call dein#add('mhartington/vim-devicons')
 call dein#add('mhartington/oceanic-next')
+call dein#add('NLKNguyen/papercolor-theme')
 call dein#add('vim-airline/vim-airline')
 call dein#add('scrooloose/nerdtree')
 call dein#add('scrooloose/nerdcommenter')
 call dein#add('majutsushi/tagbar')
 call dein#add('tpope/vim-fugitive')
+call dein#add('tpope/vim-surround')
 call dein#add('vim-ctrlspace/vim-ctrlspace')
 call dein#add('critiqjo/lldb.nvim')
 call dein#add('lervag/vimtex')
 call dein#add('chase/vim-ansible-yaml')
-"call dein#add('albfan/ag.vim')
 call dein#add('junegunn/fzf.vim')
+call dein#add('junegunn/vim-easy-align')
+call dein#add('junegunn/rainbow_parentheses.vim')
 call dein#add('jiangmiao/auto-pairs')
-call dein#add('Shougo/vimshell', { 'rev': '3787e5' }) " You can specify revision/branch/tag.
+call dein#add('ntpeters/vim-better-whitespace')
+call dein#add('AndrewRadev/switch.vim')
+call dein#add('Shougo/vimshell')
 
 " Required:
 call dein#end()
@@ -57,6 +62,11 @@ set number
 " Highlight current line
 set cursorline
 set hidden
+" ignore case on search if all lowercase
+set ignorecase
+set smartcase
+" turn on mouse-support
+set mouse=a
 
  " Theme
 syntax enable
@@ -64,23 +74,6 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 colorscheme OceanicNext
 set background=dark
 
-" spellchecker
-" Toggle spell checking on and off with <leader>s
-nmap <silent> <leader>s :set spell!<CR>
-" Set region to Deutsch(Deutschland)
-set spelllang=de_de
-" but off by default
-set nospell
-" white-list for automatic spellchecking
-" german
-au BufNewFile,BufRead,BufEnter   *.wiki    setlocal spell    spelllang=de_de
-au BufNewFile,BufRead,BufEnter   *.md      setlocal spell    spelllang=de_de
-au BufNewFile,BufRead,BufEnter   *.txt     setlocal spell    spelllang=de_de
-au BufNewFile,BufRead,BufEnter   *.tex     setlocal spell    spelllang=de_de
-" english
-au BufNewFile,BufRead,BufEnter   README    setlocal spell    spelllang=en_us
-
-" airline
 let g:airline_powerline_fonts = 1
 let g:airline_theme='oceanicnext'
 let g:airline#extensions#tabline#enabled = 1
@@ -89,12 +82,11 @@ let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 " tagbar
 let g:tagbar_usearrows = 1
+
 " key mappings
 """""""""""""""""""""""""""""""
-
 " Leader key
 let mapleader = ","
-let maplocalleader = ","
 
 " Copy/paste to/from system clipboard
 map <Leader>c "+y
@@ -121,4 +113,51 @@ nmap <leader>o :NERDTreeToggle<CR>
 
 " toggle tagbar
 nnoremap <leader>t :TagbarToggle<CR>
+
+" fzf mappings
+noremap <Leader>T :Tags <C-R>=expand('<cword>')<CR><CR>
+noremap gb :Buffers <CR>
+
+" lldb bindings
+nmap <M-b> <Plug>LLBreakSwitch
+vmap <F2> <Plug>LLStdInSelected
+nnoremap <F4> :LLstdin<CR>
+nnoremap <F5> :LLmode debug<CR>
+nnoremap <S-F5> :LLmode code<CR>
+nnoremap <F7> :LL step<CR>
+nnoremap <F8> :LL continue<CR>
+nnoremap <S-F8> :LL process interrupt<CR>
+nnoremap <F9> :LL print <C-R>=expand('<cword>')<CR>
+vnoremap <F9> :<C-U>LL print <C-R>=lldb#util#get_selection()<CR><CR>
+
+" vim-easyalign
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
+" turn on deoplete
+let g:deoplete#enable_at_startup = 1
+
+" setup deoplete-clang
+let g:deoplete#sources#clang#libclang_path = "/usr/lib/libclang.so"
+let g:deoplete#sources#clang#clang_header = "/usr/lib/clang"
+
+" neosnippet
+" Plugin key-mappings
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" turn of preview window on completion
+set completeopt-=preview
+
+" SuperTab like snippets behavior.
+"imap <expr><TAB>
+" \ pumvisible() ? "\<C-n>" :
+" \ neosnippet#expandable_or_jumpable() ?
+" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
