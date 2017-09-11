@@ -18,6 +18,7 @@ call dein#add('neomake/neomake')
 call dein#add('zchee/deoplete-clang')
 call dein#add('mhartington/vim-devicons')
 call dein#add('mhartington/oceanic-next')
+call dein#add('NLKNguyen/papercolor-theme')
 call dein#add('vim-airline/vim-airline')
 call dein#add('scrooloose/nerdtree')
 call dein#add('scrooloose/nerdcommenter')
@@ -34,7 +35,7 @@ call dein#add('junegunn/rainbow_parentheses.vim')
 call dein#add('jiangmiao/auto-pairs')
 call dein#add('ntpeters/vim-better-whitespace')
 call dein#add('AndrewRadev/switch.vim')
-call dein#add('Shougo/vimshell', { 'rev': '3787e5' }) " You can specify revision/branch/tag.
+call dein#add('Shougo/vimshell')
 
 " Required:
 call dein#end()
@@ -64,6 +65,8 @@ set hidden
 " ignore case on search if all lowercase
 set ignorecase
 set smartcase
+" turn on mouse-support
+set mouse=a
 
  " Theme
 syntax enable
@@ -79,9 +82,9 @@ let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 " tagbar
 let g:tagbar_usearrows = 1
+
 " key mappings
 """""""""""""""""""""""""""""""
-
 " Leader key
 let mapleader = ","
 
@@ -115,9 +118,6 @@ nnoremap <leader>t :TagbarToggle<CR>
 noremap <Leader>T :Tags <C-R>=expand('<cword>')<CR><CR>
 noremap gb :Buffers <CR>
 
-" buffer mappings
-
-
 " lldb bindings
 nmap <M-b> <Plug>LLBreakSwitch
 vmap <F2> <Plug>LLStdInSelected
@@ -145,13 +145,14 @@ let g:deoplete#sources#clang#libclang_path = "/usr/lib/libclang.so"
 let g:deoplete#sources#clang#clang_header = "/usr/lib/clang"
 
 " neosnippet
-" Plugin key-mappings.
+" Plugin key-mappings
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
+
 " turn of preview window on completion
 set completeopt-=preview
-"
+
 " SuperTab like snippets behavior.
 "imap <expr><TAB>
 " \ pumvisible() ? "\<C-n>" :
