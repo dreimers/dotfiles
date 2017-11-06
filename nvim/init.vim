@@ -36,6 +36,15 @@ call dein#add('jiangmiao/auto-pairs')
 call dein#add('ntpeters/vim-better-whitespace')
 call dein#add('AndrewRadev/switch.vim')
 call dein#add('Shougo/vimshell')
+call dein#add('tpope/vim-unimpaired')
+call dein#add('tpope/vim-repeat')
+call dein#add('jlanzarotta/bufexplorer')
+call dein#add('tommcdo/vim-exchange')
+call dein#add('AndrewRadev/sideways.vim')
+call dein#add('zchee/deoplete-jedi')
+call dein#add('kana/vim-textobj-user')
+call dein#add('lucapette/vim-textobj-underscore')
+call dein#add('thinca/vim-textobj-between')
 
 " Required:
 call dein#end()
@@ -82,6 +91,9 @@ let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 " tagbar
 let g:tagbar_usearrows = 1
+
+" No underlined CursorLine
+hi CursorLine cterm=None
 
 " key mappings
 """""""""""""""""""""""""""""""
@@ -137,6 +149,10 @@ xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
+" select last changed eg last paste
+" from: http://vim.wikia.com/wiki/Selecting_your_pasted_text
+nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
+
 " turn on deoplete
 let g:deoplete#enable_at_startup = 1
 
@@ -150,6 +166,18 @@ imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
 
+" sideways key-mappings
+nnoremap <Leader>sr :SidewaysRight<cr>
+nnoremap <Leader>sl :SidewaysLeft<cr>
+nnoremap <C-h> :SidewaysJumpLeft<cr>
+nnoremap <C-l> :SidewaysJumpRight<cr>
+
+" sideways text-objects (on args)
+omap aa <Plug>SidewaysArgumentTextobjA
+xmap aa <Plug>SidewaysArgumentTextobjA
+omap ia <Plug>SidewaysArgumentTextobjI
+xmap ia <Plug>SidewaysArgumentTextobjI
+"
 " turn of preview window on completion
 set completeopt-=preview
 
@@ -161,3 +189,6 @@ set completeopt-=preview
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
+" Neomake
+" enable linter on buffer write
+call neomake#configure#automake('w')
