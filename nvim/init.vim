@@ -17,8 +17,6 @@ call dein#add('Shougo/deoplete.nvim')
 call dein#add('neomake/neomake')
 call dein#add('zchee/deoplete-clang')
 call dein#add('mhartington/vim-devicons')
-call dein#add('mhartington/oceanic-next')
-call dein#add('NLKNguyen/papercolor-theme')
 call dein#add('vim-airline/vim-airline')
 call dein#add('scrooloose/nerdtree')
 call dein#add('scrooloose/nerdcommenter')
@@ -45,6 +43,19 @@ call dein#add('zchee/deoplete-jedi')
 call dein#add('kana/vim-textobj-user')
 call dein#add('lucapette/vim-textobj-underscore')
 call dein#add('thinca/vim-textobj-between')
+call dein#add('ludovicchabant/vim-gutentags')
+call dein#add('mbbill/undotree')
+
+" colorschemes
+call dein#add('mhartington/oceanic-next')
+call dein#add('NLKNguyen/papercolor-theme')
+call dein#add('tpozzi/Sidonia')
+call dein#add('hauleth/blame.vim')
+call dein#add('skielbasa/vim-material-monokai')
+call dein#add('nightsense/simplifysimplify')
+call dein#add('nightsense/seagrey')
+call dein#add('nightsense/forgotten')
+call dein#add('cnj4/horseradish256')
 
 " Required:
 call dein#end()
@@ -60,40 +71,59 @@ endif
 
 " General Settings
 """""""""""""""""""""""""""""""
+
 " Setup default encoding
 set encoding=utf8
+
 " vim mode
-set nocompatible               " Be iMproved
+set nocompatible
+
 " Use the same symbols as TextMate for tabstops and EOLs
 set listchars=tab:▸\ ,eol:¬
+
 " Line numbers
 set number
+
 " Highlight current line
 set cursorline
 set hidden
 " ignore case on search if all lowercase
 set ignorecase
 set smartcase
+
 " turn on mouse-support
 set mouse=a
 
- " Theme
-syntax enable
+" color support
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+" Or if you have Neovim >= 0.1.5
+if (has("termguicolors"))
+ set termguicolors
+endif
+
+" Theme
+syntax enable
 colorscheme OceanicNext
-set background=dark
 
 let g:airline_powerline_fonts = 1
 let g:airline_theme='oceanicnext'
 let g:airline#extensions#tabline#enabled = 1
+
 " Straight tab separators
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
+
 " tagbar
 let g:tagbar_usearrows = 1
 
 " No underlined CursorLine
 hi CursorLine cterm=None
+
+" turn of preview window on completion
+set completeopt-=preview
+
+" Use undo files
+set undofile
 
 " key mappings
 """""""""""""""""""""""""""""""
@@ -104,11 +134,17 @@ let mapleader = ","
 map <Leader>c "+y
 map <Leader>v "+p
 
+" fix annoyance :Q != :q
+cnoremap Q q
+
 " Save file
 map <Leader>w :w<CR>
 
 " Clear search highlighting with spacebar
-nnoremap <leader><space> :noh<CR>
+nnoremap <leader><space> :noh<CR>:let @/ = ""<CR>
+
+" Close quick-fix window
+nnoremap <Leader>qq :ccl<CR><silent>
 
 " Match bracket pairs with tab key
 nnoremap <tab> %
@@ -124,11 +160,21 @@ nmap <leader>l :set list!<CR>
 nmap <leader>o :NERDTreeToggle<CR>
 
 " toggle tagbar
-nnoremap <leader>t :TagbarToggle<CR>
+nnoremap <leader>T :TagbarToggle<CR>
 
 " fzf mappings
-noremap <Leader>T :Tags <C-R>=expand('<cword>')<CR><CR>
+noremap <Leader>t :Tags <C-R>=expand('<cword>')<CR><CR>
 noremap gb :Buffers <CR>
+noremap gF :Files <CR>
+noremap gT :Windows <CR>
+noremap <Leader>gb :FZFBookmarks <CR>
+nnoremap q: :History:<CR>
+
+" FZF
+" https://www.reddit.com/r/neovim/comments/3oeko4/post_your_fzfvim_configurations/cvxev6j/
+" Better search history
+command! QHist call fzf#vim#search_history({'right': '40'})
+nnoremap q/ :QHist<CR>
 
 " lldb bindings
 nmap <M-b> <Plug>LLBreakSwitch
@@ -142,6 +188,9 @@ nnoremap <S-F8> :LL process interrupt<CR>
 nnoremap <F9> :LL print <C-R>=expand('<cword>')<CR>
 vnoremap <F9> :<C-U>LL print <C-R>=lldb#util#get_selection()<CR><CR>
 
+" undotree mappings
+nnoremap <Leader>U :UndotreeToggle<CR>
+
 " vim-easyalign
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
@@ -152,13 +201,6 @@ nmap ga <Plug>(EasyAlign)
 " select last changed eg last paste
 " from: http://vim.wikia.com/wiki/Selecting_your_pasted_text
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
-
-" turn on deoplete
-let g:deoplete#enable_at_startup = 1
-
-" setup deoplete-clang
-let g:deoplete#sources#clang#libclang_path = "/usr/lib/libclang.so"
-let g:deoplete#sources#clang#clang_header = "/usr/lib/clang"
 
 " neosnippet
 " Plugin key-mappings
@@ -177,9 +219,6 @@ omap aa <Plug>SidewaysArgumentTextobjA
 xmap aa <Plug>SidewaysArgumentTextobjA
 omap ia <Plug>SidewaysArgumentTextobjI
 xmap ia <Plug>SidewaysArgumentTextobjI
-"
-" turn of preview window on completion
-set completeopt-=preview
 
 " SuperTab like snippets behavior.
 "imap <expr><TAB>
@@ -192,3 +231,24 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 " Neomake
 " enable linter on buffer write
 call neomake#configure#automake('w')
+
+" Turn on spell check on some filetypes
+au BufNewFile,BufRead,BufEnter   *.tex     setlocal spell    spelllang=de_de
+au BufNewFile,BufRead,BufEnter   *.md      setlocal spell    spelllang=en_us
+au BufNewFile,BufRead,BufEnter   *.txt     setlocal spell    spelllang=de_de
+au BufNewFile,BufRead,BufEnter   README    setlocal spell    spelllang=en_us
+
+" PLUGIN SETTINGS
+" fzf
+command! FZFBookmarks call fzf#run({
+		\	'source': 'cat ~/.NERDTreeBookmarks|cut -d" " -f2',
+		\	'sink': 'e',
+		\	'options': '--prompt "Bookmark> "',
+		\	'down': '20%'})
+
+" turn on deoplete
+let g:deoplete#enable_at_startup = 1
+
+" setup deoplete-clang
+let g:deoplete#sources#clang#libclang_path = "/usr/lib/libclang.so"
+let g:deoplete#sources#clang#clang_header = "/usr/lib/clang"
